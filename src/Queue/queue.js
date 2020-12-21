@@ -28,7 +28,7 @@ class Queue {
    * @param element {any} 待新增的值
    * @returns {Object} 新增后的队列
    */
-  enqueue(element) {
+  push(element) {
     this.items[this.count] = element;
     this.count += 1;
 
@@ -40,7 +40,7 @@ class Queue {
    * @public
    * @returns {undefined | *} 队列为空删除值为前者，不为空删除对应的值
    */
-  dequeue() {
+  shift() {
     if (this.isEmpty()) return undefined;
     const value = this.items[this.lowestIndex];
     delete this.items[this.lowestIndex];
