@@ -1,0 +1,46 @@
+{
+  "name": "javascript-datastructures",
+  "version": "1.0.0",
+  "description": "javascript datastructures",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:docs": "rm -rf ./docs && jsdoc -r -c jsdoc-config.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zactony/javascript-datastructures.git"
+  },
+  "keywords": [
+    "javascript",
+    "datastructures"
+  ],
+  "author": "zactony",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/zactony/javascript-datastructures/issues"
+  },
+  "homepage": "https://github.com/zactony/javascript-datastructures#readme",
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.15.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "husky": "^4.3.6",
+    "jsdoc": "^3.6.6",
+    "lint-staged": "^10.5.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged",
+      "commit-msg": "commitlint -e -V"
+    }
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "eslint --fix"
+    ]
+  }
+}
