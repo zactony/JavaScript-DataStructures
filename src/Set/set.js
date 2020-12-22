@@ -1,4 +1,6 @@
-import { isFunction, isObject } from '../utils.js';
+import {
+  isFunction, isObject, isSet, isSymbol,
+} from '../utils.js';
 
 /** 数据结构 - 集合 */
 class Set {
@@ -71,21 +73,88 @@ class Set {
   }
 
   /**
+   * 获取集合所有值
+   * @public
+   * @returns {Array} 集合值数组
+   */
+  values() {
+    return Object.values(this.#items);
+  }
+
+  /**
    * 集合字符串化
    * @returns {string} 集合字符串
    */
   toString() {
-    return Object.values(this.#items).join(',');
+    let value = '';
+
+    if (!this.isEmpty()) {
+      value = this.values().filter((item) => !isSymbol(item)).join(',');
+    }
+
+    return value;
   }
 
   /**
-   * 检测传入的参数是否是 Set 类型
-   * @private
-   * @param set {any} 待检测参数
-   * @returns {boolean} 参数是否是 Set 类型
+   * 对传入的集合取并集
+   * @public
+   * @param set {Set} 传入的集合
+   * @throws {TypeError} 参数必须是Set类型
+   * @returns {Set} 并集
    */
-  #isSetType(set) {
-    return Object.prototype.toString.call(set) === '[object Set]'
+  union(set) {
+    if (!isSet(set)) throw new TypeError(`${set} isn't Set`);
+    const value = new Set();
+    this.values().map((item) => value.add(item));
+    set.values().map((item) => value.add(item));
+    return value;
+  }
+
+  /**
+   * 对传入的集合取交集
+   * @public
+   * @param set {Set} 传入的集合
+   * @throws {TypeError} 参数必须是Set类型
+   * @returns {Set} 交集
+   */
+  intersection(set) {
+    if (!isSet(set)) throw new TypeError(`${set} isn't Set`);
+    const value = new Set();
+    Object.keys(
+      this.size() <= set.size()
+        ? this.#items
+        : set,
+    )
+      .map((item) => set.has(item) && value.add(item));
+    return value;
+  }
+
+  /**
+   * 对传入的集合取自身差集
+   * @public
+   * @param set {Set} 传入的集合
+   * @throws {TypeError} 参数必须是Set类型
+   * @returns {Set} 差集
+   */
+  difference(set) {
+    if (!isSet(set)) throw new TypeError(`${set} isn't Set`);
+    const value = new Set();
+
+    this.values().map((item) => !set.has(item) && value.add(item));
+    return value;
+  }
+
+  /**
+   * 对传入的集合检测是它的子集
+   * @public
+   * @param set {Set} 传入的集合
+   * @throws {TypeError} 参数必须是Set类型
+   * @returns {boolean} 是否为子集
+   */
+  isSubsetOf(set) {
+    if (!isSet(set)) throw new TypeError(`${set} isn't Set`);
+    if (this.size() >= set.size()) return false;
+    return this.values().every((item) => set.has(item));
   }
 }
 
