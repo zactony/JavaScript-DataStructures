@@ -17,5 +17,6 @@ module.exports = {
   plugins: ['import'],
   rules: {
     'import/extensions': 'off',
+    'no-undef': 'off',
   },
 };

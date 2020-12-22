@@ -14,7 +14,7 @@ class SortedLinkedList extends LinkedList {
 
   constructor(equalsFn, sortFn = (a, b) => a - b) {
     super(equalsFn);
-    if (!isFunction(sortFn)) throw new TypeError(`${sortFn} isn't function`)
+    if (!isFunction(sortFn)) throw new TypeError(`${sortFn} isn't function`);
     this.sortFn = sortFn;
   }
 
@@ -47,7 +47,7 @@ class SortedLinkedList extends LinkedList {
       index += 1;
       if (this.sortFn(element, current.value) <= 0) {
         break;
-      } 
+      }
       current = current.next;
     }
 
