@@ -21,10 +21,10 @@ class DoublyLinkedList extends LinkedList {
    * @param element {any} 待新增的值
    * @param index {number} 待新增值的指针
    * @throws {TypeError} index 参数必须是 number 类型
-   * @returns {Object} 新增节点后的链表
+   * @returns {boolean | Object} 指针超出范围返回前者，否则返回新增后的链表
    */
   insert(element, index) {
-    if (!isNumber(index)) throw new TypeError(`${index} isn't number type`);
+    if (!isNumber(index)) throw new TypeError(`${index} isn't number`);
     if (index < 0 || index > this.size()) return false;
     const doublyNode = new DoublyNode(element);
     let current = this.head;
@@ -38,7 +38,6 @@ class DoublyLinkedList extends LinkedList {
      * 第四种情况：如果插入的指针在链表的范围内，则找到当前指针
      *            存储的节点，然后前序节点、待插入节点、当前节点
      *            三者互相链接
-     *
      */
 
     if (!index) {
@@ -65,7 +64,7 @@ class DoublyLinkedList extends LinkedList {
     }
 
     this.count += 1;
-    return this.head;
+    return { ...this.head };
   }
 
   /**
@@ -74,10 +73,10 @@ class DoublyLinkedList extends LinkedList {
    * @override
    * @param index {number} 指定指针
    * @throws {TypeError} 参数必须是 number 类型
-   * @returns {Object} 移除的链表
+   * @returns {boolean | Object} 指针超出范围返回前者，否则返回对应的链表
    */
   removeAt(index) {
-    if (!isNumber(index)) throw new TypeError(`${index} isn't number type`);
+    if (!isNumber(index)) throw new TypeError(`${index} isn't number`);
 
     if (index < 0 || index >= this.size()) return false;
     let current = this.head;
@@ -113,7 +112,7 @@ class DoublyLinkedList extends LinkedList {
       next.prev = previous;
     }
     this.count -= 1;
-    return current;
+    return { ...current };
   }
 }
 

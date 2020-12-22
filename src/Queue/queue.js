@@ -32,7 +32,7 @@ class Queue {
     this.items[this.count] = element;
     this.count += 1;
 
-    return this.items;
+    return { ...this.items };
   }
 
   /**

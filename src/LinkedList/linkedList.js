@@ -62,7 +62,7 @@ class LinkedList {
     }
 
     this.count += 1;
-    return this.head;
+    return { ...this.head };
   }
 
   /**
@@ -93,10 +93,10 @@ class LinkedList {
    * @public
    * @param index {number} 需要查询的指针
    * @throws {TypeError} 查询参数必须是 number 类型
-   * @returns {object | undefined} 指针超出范围返回前者，否则返回对应的链表
+   * @returns {undefined | Object} 指针超出范围返回前者，否则返回对应的链表
    */
   getElementAt(index) {
-    if (!isNumber(index)) throw new TypeError(`${index} isn't number type`);
+    if (!isNumber(index)) throw new TypeError(`${index} isn't number`);
     if (index < 0 || index >= this.size()) return undefined;
     let current = this.head;
     let searchIndex = index;
@@ -105,7 +105,7 @@ class LinkedList {
       current = current.next;
       searchIndex -= 1;
     }
-    return current;
+    return { ...current };
   }
 
   /**
@@ -114,10 +114,10 @@ class LinkedList {
    * @param element {any} 待插入的值
    * @param index {number} 待插入值的指针
    * @throws {TypeError} index 参数必须是 number 类型
-   * @returns {Object} 插入节点后的链表
+   * @returns {boolean | Object} 指针超出范围返回前者，否则返回新增后的链表
    */
   insert(element, index) {
-    if (!isNumber(index)) throw new TypeError(`${index} isn't number type`);
+    if (!isNumber(index)) throw new TypeError(`${index} isn't number`);
     if (index < 0 || index > this.size()) return false;
     const node = new Node(element);
     if (!index) {
@@ -130,14 +130,14 @@ class LinkedList {
     }
 
     this.count += 1;
-    return this.head;
+    return { ...this.head };
   }
 
   /**
    * 移除链表上具体值
    * @public
    * @param element {any} 待移除的值
-   * @returns {Object} 移除的链表
+   * @returns {boolean | Object} 指针超出范围返回前者，否则返回对应的链表
    */
   remove(element) {
     return this.removeAt(this.indexOf(element));
@@ -148,10 +148,10 @@ class LinkedList {
    * @public
    * @param index {number} 指定指针
    * @throws {TypeError} 参数必须是 number 类型
-   * @returns {Object} 移除的链表
+   * @returns {boolean | Object} 指针超出范围返回前者，否则返回对应的链表
    */
   removeAt(index) {
-    if (!isNumber(index)) throw new TypeError(`${index} isn't number type`);
+    if (!isNumber(index)) throw new TypeError(`${index} isn't number`);
 
     if (index < 0 || index >= this.size()) return false;
     let current = this.head;
@@ -165,16 +165,7 @@ class LinkedList {
     }
 
     this.count -= 1;
-    return current;
-  }
-
-  /**
-   * 获取链表
-   * @public
-   * @returns {Object} 链表
-   */
-  getHead() {
-    return this.head;
+    return { ...current };
   }
 
   /**

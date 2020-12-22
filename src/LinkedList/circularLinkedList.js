@@ -14,10 +14,10 @@ class CircularLinkedList extends LinkedList {
    * @param element {any} 待插入的值
    * @param index {number} 待插入值的指针
    * @throws {TypeError} index 参数必须是 number 类型
-   * @returns {Object} 新增节点后的链表
+   * @returns {boolean | Object} 指针超出范围返回前者，否则返回新增后的链表
    */
   insert(element, index) {
-    if (!isNumber(index)) throw new TypeError(`${index} isn't number type`);
+    if (!isNumber(index)) throw new TypeError(`${index} isn't number`);
     if (index < 0 || index > this.size()) return false;
     const node = new Node(element);
 
@@ -38,7 +38,7 @@ class CircularLinkedList extends LinkedList {
     }
 
     this.count += 1;
-    return this.head;
+    return { ...this.head };
   }
 
   /**
@@ -47,10 +47,10 @@ class CircularLinkedList extends LinkedList {
    * @override
    * @param index {number} 指定指针
    * @throws {TypeError} 参数必须是 number 类型
-   * @returns {Object} 移除的节点
+   * @returns {boolean | Object} 指针超出范围返回前者，否则返回对应的链表
    */
   removeAt(index) {
-    if (!isNumber(index)) throw new TypeError(`${index} isn't number type`);
+    if (!isNumber(index)) throw new TypeError(`${index} isn't number`);
 
     if (index < 0 || index >= this.size()) return false;
     let current = this.head;
@@ -70,7 +70,7 @@ class CircularLinkedList extends LinkedList {
     }
 
     this.count -= 1;
-    return current;
+    return { ...current };
   }
 }
 

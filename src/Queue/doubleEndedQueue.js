@@ -32,7 +32,7 @@ class DoubleEndedQueue extends Queue {
       this.items[this.lowestIndex] = element;
     }
 
-    return this.items;
+    return { ...this.items };
   }
 
   /**
