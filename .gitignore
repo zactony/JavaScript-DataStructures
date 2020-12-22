@@ -109,3 +109,7 @@ dist
 
 # api doc file
 docs/
+
+# lock
+package-lock.json
+yarn.lock
