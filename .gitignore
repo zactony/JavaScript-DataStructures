@@ -113,3 +113,6 @@ docs/
 # lock
 package-lock.json
 yarn.lock
+
+# example file
+src/index.js
