@@ -15,9 +15,9 @@ class LinkedList {
   /**
    * 链表存储的内容
    * @protected
-   * @type {object}
+   * @type {undefined}
    */
-  head = {}
+  head = undefined
 
   /**
    * 链表值比较函数
@@ -73,16 +73,15 @@ class LinkedList {
    */
   indexOf(element) {
     let value = this.NULL_INDEX;
-    if (!this.isEmpty()) {
-      let current = this.head;
-      let searchIndex = this.size();
+    if (this.isEmpty()) return value;
+    let current = this.head;
+    let searchIndex = this.size();
 
-      while (searchIndex > 0) {
-        value += 1;
-        if (this.equalsFn(current.value, element)) break;
-        searchIndex -= 1;
-        current = current.next;
-      }
+    while (searchIndex > 0) {
+      value += 1;
+      if (this.equalsFn(current.value, element)) break;
+      searchIndex -= 1;
+      current = current.next;
     }
 
     return value;
@@ -105,7 +104,7 @@ class LinkedList {
       current = current.next;
       searchIndex -= 1;
     }
-    return { ...current };
+    return current;
   }
 
   /**
