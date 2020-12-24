@@ -17,7 +17,7 @@ class Dictionary {
    * @returns {boolean} 新增一个字典项是否成功
    */
   set(key, value) {
-    const stringKey = this.#keyToString(key);
+    const stringKey = Dictionary.keyToString(key);
     this.#items[stringKey] = new ValuePair(key, value);
     return true;
   }
@@ -30,7 +30,7 @@ class Dictionary {
    * @returns {any} 返回对应的字典
    */
   remove(key) {
-    const stringKey = this.#keyToString(key);
+    const stringKey = Dictionary.keyToString(key);
     if (!this.has(stringKey)) throw new Error(`${key} doesn't exist`);
     const value = this.#items[stringKey];
     delete this.#items[stringKey];
@@ -55,7 +55,7 @@ class Dictionary {
    * @returns {any} 返回对应的字典
    */
   get(key) {
-    const stringKey = this.#keyToString(key);
+    const stringKey = Dictionary.keyToString(key);
     if (!this.has(stringKey)) throw new Error(`${key} doesn't exist`);
     return this.#items[stringKey];
   }
@@ -129,20 +129,20 @@ class Dictionary {
    * @returns {Array<Object>} 对象数组
    */
   #values() {
-    return Object.values(this.#items)
+    return Object.values(this.#items);
   }
 
   /**
-   * @private
+   * @static
    * @param key {any} 需要处理的键名
    * @throws {TypeError} 参数必须是基本数据类型
    * @returns {string} 字符串化后的键名
    */
-  #keyToString(key) {
-    if (isFunction(key) || isObject(key)) throw new TypeError(`${key} isn't primitive value`)
-    if (key === undefined) return 'UNDEFINED'
-    if (key === null) return 'NULL'
-    return key.toString().toUpperCase()
+  static keyToString(key) {
+    if (isFunction(key) || isObject(key)) throw new TypeError(`${key} isn't primitive value`);
+    if (key === undefined) return 'UNDEFINED';
+    if (key === null) return 'NULL';
+    return key.toString().toUpperCase();
   }
 }
 
