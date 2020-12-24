@@ -169,6 +169,13 @@ class LinkedList {
   }
 
   /**
+   * 获取整个链表
+   */
+  getLinkedList() {
+    return this.head;
+  }
+
+  /**
    * 检测栈是否为空
    * @public
    * @returns {boolean} 栈是否为空

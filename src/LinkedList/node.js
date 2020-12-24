@@ -6,14 +6,14 @@
 export class Node {
   /**
    * 初始化节点的值
-   * @protected
+   * @public
    * @type {undefined}
    */
   value = undefined
 
   /**
    * 下一个节点的索引
-   * @protected
+   * @public
    * @type {undefined}
    */
   next = undefined
@@ -29,7 +29,7 @@ export class Node {
 export class DoublyNode extends Node {
   /**
    * 前一个节点的索引
-   * @protected
+   * @public
    * @type {undefined}
    */
   prev = undefined
