@@ -54,6 +54,13 @@ export const isObject = (value) => getValueType(value) === '[object Object]';
 export const isSet = (value) => getValueType(value) === '[object Set]';
 
 /**
+ * 检测是否是 String 类型
+ * @param value {any}
+ * @returns {boolean}
+ */
+export const isString = (value) => getValueType(value) === '[object String]';
+
+/**
  * 比较传入值是否相等
  * @param a {*}
  * @param b {*}

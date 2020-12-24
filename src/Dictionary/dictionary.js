@@ -133,6 +133,7 @@ class Dictionary {
   }
 
   /**
+   * 将传入的键名字符串化
    * @static
    * @param key {any} 需要处理的键名
    * @throws {TypeError} 参数必须是基本数据类型
