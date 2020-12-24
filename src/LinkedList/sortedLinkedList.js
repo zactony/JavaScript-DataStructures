@@ -25,6 +25,17 @@ class SortedLinkedList extends LinkedList {
    * @param {any} element 待插入值
    * @returns {Object} 插入新值后的链表
    */
+  push(element) {
+    return this.insert(element);
+  }
+
+  /**
+   * 插入节点
+   * @public
+   * @override
+   * @param {any} element 待插入值
+   * @returns {Object} 插入新值后的链表
+   */
   insert(element) {
     if (this.isEmpty()) {
       return super.insert(element, 0);
