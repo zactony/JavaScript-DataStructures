@@ -1,5 +1,5 @@
 import { isFunction, isObject, isSymbol } from '../utils.js';
-import ValuePair from './valuePair.js';
+import ValuePair from './value-pair.js';
 
 /** 数据结构 - 字典 */
 class Dictionary {

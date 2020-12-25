@@ -1,7 +1,7 @@
 import {
   isFunction, isNumber, isObject,
 } from '../utils.js';
-import ValuePair from '../Dictionary/valuePair.js';
+import ValuePair from '../Dictionary/value-pair.js';
 
 /** 数据结构 - 散列表 */
 class HashTable {

@@ -1,4 +1,4 @@
-import LinkedList from './linkedList.js';
+import LinkedList from './linked-list.js';
 import { isFunction } from '../utils.js';
 
 /**

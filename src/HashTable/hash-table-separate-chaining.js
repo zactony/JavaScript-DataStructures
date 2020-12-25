@@ -1,7 +1,7 @@
-import HashTable from './hashTable.js';
+import HashTable from './hash-table.js';
 import { defaultEquals, isSymbol } from '../utils.js';
-import LinkedList from '../LinkedList/linkedList.js';
-import ValuePair from '../Dictionary/valuePair.js';
+import LinkedList from '../LinkedList/linked-list.js';
+import ValuePair from '../Dictionary/value-pair.js';
 
 /**
  * 数据结构 - 散列表（分离链接）

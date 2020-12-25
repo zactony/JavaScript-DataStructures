@@ -1,4 +1,4 @@
-import LinkedList from './linkedList.js';
+import LinkedList from './linked-list.js';
 import { Node } from './node.js';
 import { isNumber } from '../utils.js';
 
