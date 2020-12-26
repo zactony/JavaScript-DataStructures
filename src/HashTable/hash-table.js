@@ -52,6 +52,7 @@ class HashTable {
 
   /**
    * 清空散列表
+   * @public
    */
   clear() {
     this.#items = {};
@@ -59,6 +60,7 @@ class HashTable {
 
   /**
    * 散列表是否为空
+   * @public
    * @return {boolean} 是否为空
    */
   isEmpty() {
@@ -67,14 +69,16 @@ class HashTable {
 
   /**
    * 散列表的长度
+   * @public
    * @return {number} 长度
    */
   size() {
-    return Object.keys(this.items).length;
+    return Object.keys(this.#items).length;
   }
 
   /**
    * 字符串化散列表
+   * @public
    * @return {string}
    */
   toString() {
@@ -87,6 +91,7 @@ class HashTable {
 
   /**
    * Hash 传入的字符串参数
+   * @public
    * @static
    * @param key {any} 键
    * @throws {TypeError} 参数必须是基本数据类型

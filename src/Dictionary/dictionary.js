@@ -89,6 +89,7 @@ class Dictionary {
 
   /**
    * 字典是否为空
+   * @public
    * @returns {boolean} 是否为空
    */
   isEmpty() {
@@ -97,6 +98,7 @@ class Dictionary {
 
   /**
    * 字典的长度
+   * @public
    * @returns {number} 长度
    */
   size() {
@@ -105,6 +107,7 @@ class Dictionary {
 
   /**
    * 清空字典
+   * @public
    */
   clear() {
     this.#items = {};
@@ -112,6 +115,7 @@ class Dictionary {
 
   /**
    * 字典字符串化
+   * @public
    * @returns {string} 字典字符串
    */
   toString() {
@@ -134,6 +138,7 @@ class Dictionary {
 
   /**
    * 将传入的键名字符串化
+   * @public
    * @static
    * @param key {any} 需要处理的键名
    * @throws {TypeError} 参数必须是基本数据类型
