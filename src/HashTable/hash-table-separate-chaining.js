@@ -66,7 +66,7 @@ class HashTableSeparateChaining {
   }
 
   /**
-   * 移除散列值
+   * 获取散列值
    * @public
    * @param key {string} 键
    * @throws {TypeError} 参数key必须是除Symbol外基本数据类型
@@ -90,6 +90,7 @@ class HashTableSeparateChaining {
 
   /**
    * 清空散列表
+   * @public
    */
   clear() {
     this.#items = {};
@@ -98,6 +99,7 @@ class HashTableSeparateChaining {
 
   /**
    * 散列表是否为空
+   * @public
    * @return {boolean} 是否为空
    */
   isEmpty() {
@@ -106,10 +108,32 @@ class HashTableSeparateChaining {
 
   /**
    * 散列表长度
+   * @public
    * @return {number} 长度
    */
   size() {
     return this.#count;
+  }
+
+  /**
+   * 字符串化散列表
+   * @public
+   * @override
+   * @return {string}
+   */
+  toString() {
+    if (this.isEmpty()) return '';
+    return Object
+      .entries(this.#items)
+      .reduce((acc, [hashCode, linkedList]) => {
+        let current = linkedList.getLinkedList();
+        while (current && current.value) {
+          acc.push(`${hashCode} => [${current.value.toString()}]`);
+          current = current.next;
+        }
+        return acc;
+      }, [])
+      .join(',');
   }
 }
 
