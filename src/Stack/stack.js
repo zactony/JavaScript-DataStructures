@@ -12,7 +12,7 @@ class Stack {
   /**
    * 栈存储的内容
    * @protected
-   * @type {object}
+   * @type {Object}
    */
   items = {}
 

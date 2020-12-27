@@ -1,5 +1,5 @@
 import HashTable from './hash-table.js';
-import { defaultEquals, isSymbol } from '../utils.js';
+import { isSymbol } from '../utils.js';
 import LinkedList from '../LinkedList/linked-list.js';
 import ValuePair from '../Dictionary/value-pair.js';
 
@@ -33,7 +33,7 @@ class HashTableSeparateChaining {
     if (isSymbol(key)) throw new TypeError('don\'t support Symbol key');
     const index = HashTable.generateHashCode(key);
     if (!this.#items[index]) {
-      this.#items[index] = new LinkedList(defaultEquals);
+      this.#items[index] = new LinkedList();
     }
     this.#items[index].push(new ValuePair(key, value));
     this.#count += 1;

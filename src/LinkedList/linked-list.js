@@ -1,6 +1,6 @@
 import { Node } from './node.js';
 import {
-  defaultEquals, isFunction, isNumber, isSymbol,
+  defaultEquals, isNumber, isSymbol,
 } from '../utils.js';
 
 /** 数据结构 - 链表 */
@@ -15,16 +15,16 @@ class LinkedList {
   /**
    * 链表存储的内容
    * @protected
-   * @type {undefined}
+   * @type {Object}
    */
   head = undefined
 
   /**
    * 链表值比较函数
    * @protected
-   * @type {function}
+   * @type {Function}
    */
-  equalsFn = undefined
+  equalsFn = defaultEquals
 
   /**
    * 空指针
@@ -34,14 +34,6 @@ class LinkedList {
    * @type {number}
    */
   NULL_INDEX = -1
-
-  /**
-   * 链表实例化
-   * @param equalsFn {function} 链表值比较函数
-   */
-  constructor(equalsFn) {
-    this.equalsFn = isFunction(equalsFn) ? equalsFn : defaultEquals;
-  }
 
   /**
    * 链表新增一个节点

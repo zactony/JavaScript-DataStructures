@@ -7,6 +7,7 @@ class Set {
   /**
    * 存储数据的集合
    * @private
+   * @type {Object}
    */
   #items= {}
 

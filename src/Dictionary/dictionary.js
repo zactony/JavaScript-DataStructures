@@ -6,6 +6,7 @@ class Dictionary {
   /**
    * 字典
    * @private
+   * @type {Object}
    */
   #items = {}
 
