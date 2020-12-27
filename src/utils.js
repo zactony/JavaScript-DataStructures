@@ -79,3 +79,24 @@ export const objectIsEmpty = (obj) => {
 
   return !Object.keys(obj).length;
 };
+
+/**
+ * 比较结果的枚举值
+ * @enum
+ */
+export const CompareEnum = {
+  DESC: -1,
+  AEC: 1,
+  NORMAL: 0,
+};
+
+/**
+ * 比较参数的大小
+ * @param a {any}
+ * @param b {any}
+ * @returns {number}
+ */
+export const defaultCompare = (a, b) => {
+  if (a === b) return CompareEnum.NORMAL;
+  return a > b ? CompareEnum.AEC : CompareEnum.DESC;
+};
