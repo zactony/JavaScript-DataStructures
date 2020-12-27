@@ -24,7 +24,7 @@ class HashTableSeparateChaining {
   /**
    * 新增散列值
    * @public
-   * @param key {string} 键
+   * @param key {any} 键
    * @param value {any} 值
    * @throws {TypeError} 参数key必须是除Symbol外基本数据类型
    * @return {boolean} 新增是否成功
@@ -43,7 +43,7 @@ class HashTableSeparateChaining {
   /**
    * 移除散列值
    * @public
-   * @param key {string} 键
+   * @param key {any} 键
    * @throws {TypeError} 参数key必须是除Symbol外基本数据类型
    * @return {Object | undefined} 存在则返回前者，不存在返回后者
    */
@@ -68,7 +68,7 @@ class HashTableSeparateChaining {
   /**
    * 获取散列值
    * @public
-   * @param key {string} 键
+   * @param key {any} 键
    * @throws {TypeError} 参数key必须是除Symbol外基本数据类型
    * @return {Object | undefined} 存在则返回前者，不存在返回后者
    */
@@ -128,7 +128,7 @@ class HashTableSeparateChaining {
       .reduce((acc, [hashCode, linkedList]) => {
         let current = linkedList.getLinkedList();
         while (current && current.value) {
-          acc.push(`${hashCode} => [${current.value.toString()}]`);
+          acc.push(`{${hashCode} => [${current.value.toString()}]}`);
           current = current.next;
         }
         return acc;

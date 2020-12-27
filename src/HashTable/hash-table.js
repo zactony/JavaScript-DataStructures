@@ -7,47 +7,47 @@ import ValuePair from '../Dictionary/value-pair.js';
 class HashTable {
   /**
    * 散列表
-   * @private
+   * @protected
    * @type {Object}
    */
-  #items = {}
+  items = {}
 
   /**
    * 新增散列值
    * @public
-   * @param key {string} 键
+   * @param key {any} 键
    * @param value {any} 值
    * @throws {TypeError} 参数key必须是基本数据类型
    * @return {boolean} 新增是否成功
    */
   put(key, value) {
-    this.#items[HashTable.generateHashCode(key)] = new ValuePair(key, value);
+    this.items[HashTable.generateHashCode(key)] = new ValuePair(key, value);
     return true;
   }
 
   /**
    * 移除散列值
    * @public
-   * @param key {string} 键
+   * @param key {any} 键
    * @throws {TypeError} 参数必须是基本数据类型
    * @return {Object | undefined} 存在则返回前者，不存在返回后者
    */
   remove(key) {
     const hashCode = HashTable.generateHashCode(key);
-    const value = this.#items[hashCode];
-    delete this.#items[hashCode];
+    const value = this.items[hashCode];
+    delete this.items[hashCode];
     return value;
   }
 
   /**
    * 根据key获取对应的散列值
    * @public
-   * @param key {string} 键
+   * @param key {any} 键
    * @throws {TypeError} 参数必须是基本数据类型
    * @return {Object | undefined} 存在则返回前者，不存在返回后者
    */
   get(key) {
-    return this.#items[HashTable.generateHashCode(key)];
+    return this.items[HashTable.generateHashCode(key)];
   }
 
   /**
@@ -55,7 +55,7 @@ class HashTable {
    * @public
    */
   clear() {
-    this.#items = {};
+    this.items = {};
   }
 
   /**
@@ -73,7 +73,7 @@ class HashTable {
    * @return {number} 长度
    */
   size() {
-    return Object.keys(this.#items).length;
+    return Object.keys(this.items).length;
   }
 
   /**
@@ -84,7 +84,7 @@ class HashTable {
   toString() {
     if (this.isEmpty()) return '';
     return Object
-      .entries(this.#items)
+      .entries(this.items)
       .map(([hashCode, valuePair]) => `{${hashCode} => [${valuePair.toString()}]}`)
       .join(',');
   }
