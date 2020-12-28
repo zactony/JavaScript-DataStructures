@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build:docs": "rm -rf ./docs && jsdoc -r -c jsdoc-config.json"
+    "build:docs": "rm -rf ./docs && jsdoc -a public -r -c jsdoc-config.json"
   },
   "repository": {
     "type": "git",
