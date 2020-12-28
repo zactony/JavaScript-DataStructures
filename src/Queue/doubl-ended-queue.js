@@ -2,6 +2,7 @@ import Queue from './queue.js';
 
 /**
  * 数据格式 - 双端队列
+ * @public
  * @extends Queue
  */
 class DoubleEndedQueue extends Queue {

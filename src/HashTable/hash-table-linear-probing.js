@@ -4,6 +4,7 @@ import HashTable from './hash-table.js';
 
 /**
  * 数据结构 - 散列表（线性探查）
+ * @public
  * @extends HashTable
  */
 class HashTableLinearProbing extends HashTable {

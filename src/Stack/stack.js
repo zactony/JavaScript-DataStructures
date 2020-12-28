@@ -1,6 +1,9 @@
 import { isSymbol } from '../utils.js';
 
-/** 数据结构 - 栈 */
+/**
+ * 数据结构 - 栈
+ * @public
+ */
 class Stack {
   /**
    * 栈长度

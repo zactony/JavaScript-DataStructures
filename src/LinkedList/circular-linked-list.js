@@ -4,6 +4,7 @@ import { isNumber } from '../utils.js';
 
 /**
  * 数据结构 - 循环列表
+ * @public
  * @extends LinkedList
  */
 class CircularLinkedList extends LinkedList {

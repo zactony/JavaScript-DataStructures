@@ -1,7 +1,10 @@
 import { CompareEnum, defaultCompare } from '../utils.js';
 import Node from './node.js';
 
-/** 数据结构 - 二叉搜索树 */
+/**
+ * 数据结构 - 二叉搜索树
+ * @public
+ */
 class BinarySearchTree {
   /**
    * 根节点
@@ -32,7 +35,7 @@ class BinarySearchTree {
 
   /**
    * 插入新键
-   * @private
+   * @protected
    * @param root {BinarySearchTree} 二叉搜索树对象
    * @param key {number} 键
    */
@@ -64,7 +67,7 @@ class BinarySearchTree {
 
   /**
    * 搜索键
-   * @private
+   * @protected
    * @param node {BinarySearchTree} 二叉搜索树对象
    * @param key {number} 键
    * @returns {boolean} 是否存在
@@ -89,7 +92,7 @@ class BinarySearchTree {
 
   /**
    * 移除键
-   * @private
+   * @protected
    * @param node {BinarySearchTree} 二叉搜索树对象
    * @param key {number} 键
    * @returns {BinarySearchTree} 二叉搜索树对象
@@ -186,7 +189,7 @@ class BinarySearchTree {
 
   /**
    * 中序遍历
-   * @private
+   * @protected
    * @param node {BinarySearchTree} 二叉搜索树对象
    * @param callback {Function} 回调函数
    */
@@ -209,7 +212,7 @@ class BinarySearchTree {
 
   /**
    * 先序遍历
-   * @private
+   * @protected
    * @param node {BinarySearchTree} 二叉搜索树对象
    * @param callback {Function} 回调函数
    */
@@ -223,7 +226,7 @@ class BinarySearchTree {
 
   /**
    * 后序遍历
-   * @private
+   * @protected
    * @param callback {Function} 回调函数
    */
   postorderTraversal(callback) {
@@ -232,7 +235,7 @@ class BinarySearchTree {
 
   /**
    * 后续遍历
-   * @private
+   * @protected
    * @param node {BinarySearchTree} 二叉搜索树对象
    * @param callback {Function} 回调函数
    */

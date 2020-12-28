@@ -1,5 +1,4 @@
 /**
- * 数据结构 - 键值对
  * @private
  */
 class ValuePair {

@@ -3,7 +3,10 @@ import {
   defaultEquals, isNumber, isSymbol,
 } from '../utils.js';
 
-/** 数据结构 - 链表 */
+/**
+ * 数据结构 - 链表
+ * @public
+ */
 class LinkedList {
   /**
    * 链表长度

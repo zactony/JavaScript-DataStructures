@@ -1,7 +1,10 @@
 import { isFunction, isObject, isSymbol } from '../utils.js';
 import ValuePair from './value-pair.js';
 
-/** 数据结构 - 字典 */
+/**
+ * 数据结构 - 字典
+ * @public
+ */
 class Dictionary {
   /**
    * 字典

@@ -3,7 +3,10 @@ import {
 } from '../utils.js';
 import ValuePair from '../Dictionary/value-pair.js';
 
-/** 数据结构 - 散列表 */
+/**
+ * 数据结构 - 散列表
+ * @public
+ */
 class HashTable {
   /**
    * 散列表

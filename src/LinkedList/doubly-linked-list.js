@@ -4,6 +4,7 @@ import { isNumber } from '../utils.js';
 
 /**
  * 数据结构 - 双端列表
+ * @public
  * @extends LinkedList
  */
 class DoublyLinkedList extends LinkedList {

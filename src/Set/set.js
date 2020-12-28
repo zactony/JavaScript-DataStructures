@@ -2,7 +2,10 @@ import {
   isFunction, isObject, isSet, isSymbol,
 } from '../utils.js';
 
-/** 数据结构 - 集合 */
+/**
+ * 数据结构 - 集合
+ * @public
+ */
 class Set {
   /**
    * 存储数据的集合

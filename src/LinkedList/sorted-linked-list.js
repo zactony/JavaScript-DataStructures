@@ -3,6 +3,7 @@ import { isFunction } from '../utils.js';
 
 /**
  * 数据结构 - 有序链表
+ * @public
  * @extends LinkedList
  */
 class SortedLinkedList extends LinkedList {

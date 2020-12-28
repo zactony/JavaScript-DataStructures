@@ -1,6 +1,9 @@
 import { isSymbol } from '../utils.js';
 
-/** 数据格式 - 队列 */
+/**
+ * 数据格式 - 队列
+ * @public
+ */
 class Queue {
   /**
    * 队列长度

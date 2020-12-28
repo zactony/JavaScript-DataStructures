@@ -5,6 +5,7 @@ import ValuePair from '../Dictionary/value-pair.js';
 
 /**
  * 数据结构 - 散列表（分离链接）
+ * @public
  */
 class HashTableSeparateChaining {
   /**
