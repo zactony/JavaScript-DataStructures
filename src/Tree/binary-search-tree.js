@@ -17,6 +17,11 @@ class BinarySearchTree {
    */
   compareFn = defaultCompare
 
+  /**
+   * 插入新键
+   * @public
+   * @param key {number} 键
+   */
   insert(key) {
     if (!this.root) {
       this.root = new Node(key);
@@ -25,6 +30,12 @@ class BinarySearchTree {
     }
   }
 
+  /**
+   * 插入新键
+   * @private
+   * @param root {BinarySearchTree} 二叉搜索树对象
+   * @param key {number} 键
+   */
   insertNode(root, key) {
     const node = root;
     if (this.compareFn(node.key, key) === CompareEnum.NORMAL) return;
@@ -41,10 +52,23 @@ class BinarySearchTree {
     }
   }
 
+  /**
+   * 搜索键
+   * @public
+   * @param key {number} 键
+   * @returns {boolean} 是否存在
+   */
   search(key) {
-    return this.searchNode(key);
+    return this.searchNode(this.root, key);
   }
 
+  /**
+   * 搜索键
+   * @private
+   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param key {number} 键
+   * @returns {boolean} 是否存在
+   */
   searchNode(node, key) {
     if (!node) return false;
     if (this.compareFn(node.key, key) === CompareEnum.NORMAL) return true;
@@ -54,26 +78,118 @@ class BinarySearchTree {
     return this.searchNode(node.right, key);
   }
 
+  /**
+   * 移除键
+   * @public
+   * @param key {number} 键
+   */
+  remove(key) {
+    this.root = this.removeNode(this.root, key);
+  }
+
+  /**
+   * 移除键
+   * @private
+   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param key {number} 键
+   * @returns {BinarySearchTree} 二叉搜索树对象
+   */
+  removeNode(node, key) {
+    if (!node) return null;
+    let root = node;
+    if (this.compareFn(root.key, key) === CompareEnum.AEC) {
+      root.left = this.removeNode(root.left, key);
+      return root;
+    }
+
+    if (this.compareFn(root.key, key) === CompareEnum.DESC) {
+      root.right = this.removeNode(root.right, key);
+      return root;
+    }
+
+    if (!root.left && !root.right) {
+      root = null;
+      return root;
+    }
+
+    if (!root.left) {
+      root = root.right;
+      return root;
+    }
+
+    if (!root.right) {
+      root = root.left;
+      return root;
+    }
+
+    const aux = this.minNode(node.right);
+    root.key = aux;
+    root.right = this.removeNode(node.right, aux);
+
+    return root;
+  }
+
+  /**
+   * 获取最小键
+   * @public
+   * @returns {number} 键
+   */
   min() {
-    let current = this.root;
+    return BinarySearchTree.minNode(this.root);
+  }
+
+  /**
+   * 获取最小键
+   * @static
+   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @returns {number} 键
+   */
+  static minNode(node) {
+    let current = node;
     while (current && current.left) {
       current = current.left;
     }
-    return current;
+    return current.key;
   }
 
+  /**
+   * 获取最大键
+   * @public
+   * @returns {number} 键
+   */
   max() {
-    let current = this.root;
+    return BinarySearchTree.maxNode(this.root);
+  }
+
+  /**
+   * 获取最小键
+   * @static
+   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @returns {number} 键
+   */
+  static maxNode(node) {
+    let current = node;
     while (current && current.right) {
       current = current.right;
     }
-    return current;
+    return current.key;
   }
 
+  /**
+   * 中序遍历
+   * @public
+   * @param callback {Function} 回调函数
+   */
   inorderTraverse(callback) {
     this.inorderTraverseNode(this.root, callback);
   }
 
+  /**
+   * 中序遍历
+   * @private
+   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param callback {Function} 回调函数
+   */
   inorderTraverseNode(node, callback) {
     if (node) {
       this.inorderTraverseNode(node.left, callback);
@@ -82,10 +198,21 @@ class BinarySearchTree {
     }
   }
 
+  /**
+   * 先序遍历
+   * @public
+   * @param callback {Function} 回调函数
+   */
   preorderTraversal(callback) {
     this.preorderTraversalNode(this.root, callback);
   }
 
+  /**
+   * 先序遍历
+   * @private
+   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param callback {Function} 回调函数
+   */
   preorderTraversalNode(node, callback) {
     if (node) {
       callback(node.key);
@@ -94,10 +221,21 @@ class BinarySearchTree {
     }
   }
 
+  /**
+   * 后序遍历
+   * @private
+   * @param callback {Function} 回调函数
+   */
   postorderTraversal(callback) {
     this.postorderTraversalNode(this.root, callback);
   }
 
+  /**
+   * 后续遍历
+   * @private
+   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param callback {Function} 回调函数
+   */
   postorderTraversalNode(node, callback) {
     if (node) {
       this.postorderTraversalNode(node.left, callback);
