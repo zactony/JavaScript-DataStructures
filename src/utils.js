@@ -61,6 +61,13 @@ export const isSet = (value) => getValueType(value) === '[object Set]';
 export const isString = (value) => getValueType(value) === '[object String]';
 
 /**
+ * 检测是否是 null 类型
+ * @param value {any}
+ * @returns {boolean}
+ */
+export const isNull = (value) => getValueType(value) === '[object Null]';
+
+/**
  * 比较传入值是否相等
  * @param a {*}
  * @param b {*}
@@ -99,4 +106,16 @@ export const CompareEnum = {
 export const defaultCompare = (a, b) => {
   if (a === b) return CompareEnum.NORMAL;
   return a > b ? CompareEnum.AEC : CompareEnum.DESC;
+};
+
+/**
+ * 平衡因子
+ * @enum
+ */
+export const BALANCE_FACTOR = {
+  UNBALANCED_RIGHT: 1,
+  SLIGHTLY_UNBALANCED_RIGHT: 2,
+  BALANCED: 3,
+  SLIGHTLY_UNBALANCED_LEFT: 4,
+  UNBALANCED_LEFT: 5,
 };
