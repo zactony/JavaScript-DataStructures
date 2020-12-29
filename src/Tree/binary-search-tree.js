@@ -104,7 +104,7 @@ class BinarySearchTree {
     }
 
     if (isNull(temp.left) && isNull(temp.right)) {
-      temp = undefined;
+      temp = null;
       return temp;
     }
 
@@ -118,7 +118,7 @@ class BinarySearchTree {
       return temp;
     }
 
-    const aux = this.minNode(node.right);
+    const aux = BinarySearchTree.minNode(node.right);
     temp.key = aux;
     temp.right = this.removeNode(node.right, aux);
 
