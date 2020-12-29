@@ -1,4 +1,4 @@
-import { CompareEnum, defaultCompare } from '../utils.js';
+import { CompareEnum, defaultCompare, isNull } from '../utils.js';
 import Node from './node.js';
 
 /**
@@ -11,7 +11,7 @@ class BinarySearchTree {
    * @protected
    * @type {Object}
    */
-  root = undefined
+  root = null
 
   /**
    * 比较函数
@@ -26,33 +26,26 @@ class BinarySearchTree {
    * @param key {number} 键
    */
   insert(key) {
-    if (!this.root) {
-      this.root = new Node(key);
-    } else {
-      this.insertNode(this.root, key);
-    }
+    this.root = this.insertNode(this.root, key);
   }
 
   /**
    * 插入新键
    * @protected
-   * @param root {BinarySearchTree} 二叉搜索树对象
+   * @param node {Node} 节点
    * @param key {number} 键
    */
-  insertNode(root, key) {
-    const node = root;
-    if (this.compareFn(node.key, key) === CompareEnum.NORMAL) return;
-    if (this.compareFn(node.key, key) === CompareEnum.AEC) {
-      if (!node.left) {
-        node.left = new Node(key);
-      } else {
-        this.insertNode(node.left, key);
-      }
-    } else if (!node.right) {
-      node.right = new Node(key);
-    } else {
-      this.insertNode(node.right, key);
+  insertNode(node, key) {
+    const temp = node;
+    if (isNull(temp)) {
+      return new Node(key);
+    } if (this.compareFn(temp.key, key) === CompareEnum.AEC) {
+      temp.left = this.insertNode(temp.left, key);
+    } else if (this.compareFn(temp.key, key) === CompareEnum.DESC) {
+      temp.right = this.insertNode(temp.right, key);
     }
+
+    return temp;
   }
 
   /**
@@ -68,12 +61,12 @@ class BinarySearchTree {
   /**
    * 搜索键
    * @protected
-   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param node {Node} 节点
    * @param key {number} 键
    * @returns {boolean} 是否存在
    */
   searchNode(node, key) {
-    if (!node) return false;
+    if (isNull(node)) return false;
     if (this.compareFn(node.key, key) === CompareEnum.NORMAL) return true;
     if (this.compareFn(node.key, key) === CompareEnum.AEC) {
       return this.searchNode(node.left, key);
@@ -93,43 +86,43 @@ class BinarySearchTree {
   /**
    * 移除键
    * @protected
-   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param node {Node} 节点
    * @param key {number} 键
-   * @returns {BinarySearchTree} 二叉搜索树对象
+   * @returns {Node} 节点
    */
   removeNode(node, key) {
-    if (!node) return null;
-    let root = node;
-    if (this.compareFn(root.key, key) === CompareEnum.AEC) {
-      root.left = this.removeNode(root.left, key);
-      return root;
+    if (isNull(node)) return null;
+    let temp = node;
+    if (this.compareFn(temp.key, key) === CompareEnum.AEC) {
+      temp.left = this.removeNode(temp.left, key);
+      return temp;
     }
 
-    if (this.compareFn(root.key, key) === CompareEnum.DESC) {
-      root.right = this.removeNode(root.right, key);
-      return root;
+    if (this.compareFn(temp.key, key) === CompareEnum.DESC) {
+      temp.right = this.removeNode(temp.right, key);
+      return temp;
     }
 
-    if (!root.left && !root.right) {
-      root = null;
-      return root;
+    if (isNull(temp.left) && isNull(temp.right)) {
+      temp = undefined;
+      return temp;
     }
 
-    if (!root.left) {
-      root = root.right;
-      return root;
+    if (isNull(temp.left)) {
+      temp = temp.right;
+      return temp;
     }
 
-    if (!root.right) {
-      root = root.left;
-      return root;
+    if (isNull(temp.right)) {
+      temp = temp.left;
+      return temp;
     }
 
     const aux = this.minNode(node.right);
-    root.key = aux;
-    root.right = this.removeNode(node.right, aux);
+    temp.key = aux;
+    temp.right = this.removeNode(node.right, aux);
 
-    return root;
+    return temp;
   }
 
   /**
@@ -144,7 +137,7 @@ class BinarySearchTree {
   /**
    * 获取最小键
    * @static
-   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param node {Node} 节点
    * @returns {number} 键
    */
   static minNode(node) {
@@ -167,7 +160,7 @@ class BinarySearchTree {
   /**
    * 获取最小键
    * @static
-   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param node {Node} 节点
    * @returns {number} 键
    */
   static maxNode(node) {
@@ -190,7 +183,7 @@ class BinarySearchTree {
   /**
    * 中序遍历
    * @protected
-   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param node {Node} 节点
    * @param callback {Function} 回调函数
    */
   inorderTraverseNode(node, callback) {
@@ -213,7 +206,7 @@ class BinarySearchTree {
   /**
    * 先序遍历
    * @protected
-   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param node {Node} 节点
    * @param callback {Function} 回调函数
    */
   preorderTraversalNode(node, callback) {
@@ -236,7 +229,7 @@ class BinarySearchTree {
   /**
    * 后续遍历
    * @protected
-   * @param node {BinarySearchTree} 二叉搜索树对象
+   * @param node {Node} 节点
    * @param callback {Function} 回调函数
    */
   postorderTraversalNode(node, callback) {

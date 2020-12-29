@@ -9,14 +9,14 @@ class Node {
    * @public
    * @type {Node}
    */
-  left = undefined
+  left = null
 
   /**
    * 右侧键索引
    * @public
    * @type {Node}
    */
-  right = undefined
+  right = null
 
   constructor(key) {
     this.key = key;
