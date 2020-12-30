@@ -50,18 +50,19 @@ class AdelsonVelskiiLandiTree extends BinarySearchTree {
     const temp = super.removeNode(node, key);
 
     if (isNull(temp)) return temp;
+
     const balanceFactor = this.#getBalanceFactor(temp);
     if (balanceFactor === BALANCE_FACTOR.UNBALANCED_LEFT) {
       const balanceFactorLeft = this.#getBalanceFactor(temp.left);
 
       if (
-        balanceFactorLeft === CompareEnum.BALANCED
-        || balanceFactorLeft === CompareEnum.SLIGHTLY_UNBALANCED_LEFT
+        balanceFactorLeft === BALANCE_FACTOR.BALANCED
+        || balanceFactorLeft === BALANCE_FACTOR.SLIGHTLY_UNBALANCED_LEFT
       ) {
         return this.#rotationLL(temp);
       }
 
-      if (balanceFactorLeft === CompareEnum.SLIGHTLY_UNBALANCED_RIGHT) {
+      if (balanceFactorLeft === BALANCE_FACTOR.SLIGHTLY_UNBALANCED_RIGHT) {
         return this.#rotationLR(temp.left);
       }
     }
@@ -70,13 +71,13 @@ class AdelsonVelskiiLandiTree extends BinarySearchTree {
       const balanceFactorRight = this.#getBalanceFactor(temp.right);
 
       if (
-        balanceFactorRight === CompareEnum.BALANCED
-        || balanceFactorRight === CompareEnum.SLIGHTLY_UNBALANCED_RIGHT
+        balanceFactorRight === BALANCE_FACTOR.BALANCED
+        || balanceFactorRight === BALANCE_FACTOR.SLIGHTLY_UNBALANCED_RIGHT
       ) {
         return this.#rotationRR(temp);
       }
 
-      if (balanceFactorRight === CompareEnum.SLIGHTLY_UNBALANCED_LEFT) {
+      if (balanceFactorRight === BALANCE_FACTOR.SLIGHTLY_UNBALANCED_LEFT) {
         return this.#rotationRL(temp.right);
       }
     }
