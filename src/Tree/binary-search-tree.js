@@ -93,6 +93,17 @@ class BinarySearchTree {
   removeNode(node, key) {
     if (isNull(node)) return null;
     let temp = node;
+
+    /**
+     * 第一种情况：当前节点键大于待删除键，则对当前节点的左树递归调用重新赋值
+     * 第二种情况：当前节点键小于待删除键，则对当前节点的右树递归调用重新赋值
+     * 第三种情况：当前节点键等于待删除键
+     *    第一种：当前节点左树和右树都为空，则直接将当前节点重新赋值为空，然后返回节点
+     *    第二种：当前节点左树为空，则直接将右树提前作为新的当前节点，然后返回新节点
+     *    第三种：当前节点右树为空，则直接将左树提前作为新的当前节点，然后返回新节点
+     *    第四种：当前节点的左右树都不为空，将右树最小键提出来作为当前节点的新键，然后
+     *           重新对右树递归删除重复的键
+     */
     if (this.compareFn(temp.key, key) === CompareEnum.AEC) {
       temp.left = this.removeNode(temp.left, key);
       return temp;
