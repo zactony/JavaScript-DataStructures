@@ -51,6 +51,15 @@ class AdelsonVelskiiLandiTree extends BinarySearchTree {
 
     if (isNull(temp)) return temp;
 
+    /**
+     * 第一种情况：当左树移除节点后造成了不平衡
+     *    首先计算左子树的平衡因子，如果左子树处于向左不平衡的状态，则使用向右单旋转；
+     *    如果左子树处于向右不平衡的状态，则使用向左双旋转
+     *
+     * 第二种情况：当右树移除节点后造成了不平衡
+     *    首先计算右子树的平衡因子，如果右子树处于向右不平衡的状态，则使用向左单旋转；
+     *    如果左子树处于向右不平衡的状态，则使用向右双旋转
+     */
     const balanceFactor = this.#getBalanceFactor(temp);
     if (balanceFactor === BALANCE_FACTOR.UNBALANCED_LEFT) {
       const balanceFactorLeft = this.#getBalanceFactor(temp.left);
