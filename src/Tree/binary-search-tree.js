@@ -1,5 +1,7 @@
-import { CompareEnum, defaultCompare, isNull } from '../utils.js';
-import Node from './node.js';
+import {
+  CompareEnum, defaultCompare, isNull, isNumber,
+} from '../utils.js';
+import { Node } from './node.js';
 
 /**
  * 数据结构 - 二叉搜索树
@@ -23,9 +25,11 @@ class BinarySearchTree {
   /**
    * 插入新键
    * @public
+   * @throws {TypeError} 参数必须是number
    * @param key {number} 键
    */
   insert(key) {
+    if (!isNumber(key)) throw new TypeError(`${key} isn't number`);
     this.root = this.insertNode(this.root, key);
   }
 
@@ -230,7 +234,7 @@ class BinarySearchTree {
 
   /**
    * 后序遍历
-   * @protected
+   * @public
    * @param callback {Function} 回调函数
    */
   postorderTraversal(callback) {

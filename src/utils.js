@@ -119,3 +119,12 @@ export const BALANCE_FACTOR = {
   SLIGHTLY_UNBALANCED_LEFT: 4,
   UNBALANCED_LEFT: 5,
 };
+
+/**
+ * 颜色枚举
+ * @enum
+ */
+export const COLOR = {
+  RED: 'red',
+  BLACK: 'black',
+};
