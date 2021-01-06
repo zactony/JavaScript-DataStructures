@@ -18,6 +18,15 @@ class AdelsonVelskiiLandiTree extends BinarySearchTree {
   insertNode(node, key) {
     let temp = super.insertNode(node, key);
 
+    /**
+     * 第一种情况：当左树不平衡的情况下
+     *    判断左子树的键和插入键的大小，如果小于插入键则表示右子树发生了倾斜，
+     *    调用向左双旋转；否则左子树发生了倾斜调用向右单旋转
+     *
+     * 第二种情况：当右树不平衡的情况下
+     *    判断右子树的键和插入键的大小，如果小于插入键则表示右子树发生了倾斜，
+     *    调用向左双旋转；否则左子树发生了倾斜调用向右单旋转
+     */
     const balanceFactor = this.#getBalanceFactor(temp);
     if (balanceFactor === BALANCE_FACTOR.UNBALANCED_LEFT) {
       if (this.compareFn(temp.left.key, key) === CompareEnum.AEC) {
