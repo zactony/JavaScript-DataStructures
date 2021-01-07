@@ -6,7 +6,7 @@ import BinarySearchTree from './binary-search-tree.js';
  * @public
  * @extends BinarySearchTree
  */
-class AdelsonVelskiiLandiTree extends BinarySearchTree {
+class AVLTree extends BinarySearchTree {
   /**
    * 插入新键
    * @protected
@@ -187,4 +187,4 @@ class AdelsonVelskiiLandiTree extends BinarySearchTree {
   }
 }
 
-export default AdelsonVelskiiLandiTree;
+export default AVLTree;

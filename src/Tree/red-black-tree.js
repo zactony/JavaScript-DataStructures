@@ -1,15 +1,15 @@
 import {
-  COLOR, CompareEnum, isNull, isNumber,
+  COLOR, isNull, isNumber,
 } from '../utils.js';
-import AdelsonVelskiiLandiTree from './adelson-velskii-landi-tree.js';
+import AVLTree from './avl-tree.js';
 import { RedBlackNode } from './node.js';
 
 /**
  * 数据结构 - 红黑树
  * @public
- * @extends AdelsonVelskiiLandiTree
+ * @extends AVLTree
  */
-class RedBlackTree extends AdelsonVelskiiLandiTree {
+class RedBlackTree extends AVLTree {
   /**
    * 插入节点
    * @public
@@ -31,7 +31,6 @@ class RedBlackTree extends AdelsonVelskiiLandiTree {
   /**
    * 插入节点
    * @private
-   * @override
    * @param node {RedBlackNode} 红黑树节点对象
    * @param key {number} 键
    * @returns {RedBlackNode} 红黑树节点对象
@@ -74,7 +73,7 @@ class RedBlackTree extends AdelsonVelskiiLandiTree {
           node = grandParent
         } else {
           // 2A: 节点是右侧子节点 左旋转
-          if (node === parent, right) {
+          if (node === parent.right) {
             this.#rotationRR(parent)
             node = parent
             parent = node.parent
