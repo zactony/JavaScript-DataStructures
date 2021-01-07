@@ -1,5 +1,5 @@
 import {
-  COLOR, isNull, isNumber,
+  COLOR, isNull, isNumber, CompareEnum,
 } from '../utils.js';
 import AVLTree from './avl-tree.js';
 import { RedBlackNode } from './node.js';
@@ -23,8 +23,8 @@ class RedBlackTree extends AVLTree {
       this.root = new RedBlackNode(key);
       this.root.color = COLOR.BLACK;
     } else {
-      const node = this.#insertNode(this.root, key);
-      this.#fixTreeProperties(node);
+      const node = this.insertNode(this.root, key);
+      this.fixTreeProperties(node);
     }
   }
 
@@ -35,143 +35,136 @@ class RedBlackTree extends AVLTree {
    * @param key {number} 键
    * @returns {RedBlackNode} 红黑树节点对象
    */
-  #insertNode(node, key) {
+  insertNode(node, key) {
     if (this.compareFn(node.key, key) === CompareEnum.AEC) {
       if (isNull(node.left)) {
-        node.left = new RedBlackNode(key)
-        node.left.parent = node
-        return node.left
-      } else {
-        return this.#insertNode(node.left, key)
+        node.left = new RedBlackNode(key);
+        node.left.parent = node;
+        return node.left;
       }
-    } else if (isNull(node.right)) {
-      node.right = new RedBlackNode(key)
-      node.right.parent = node
-      return node.right
-    } else {
-      return this.#insertNode(node.right, key)
+      return this.insertNode(node.left, key);
+    } if (isNull(node.right)) {
+      node.right = new RedBlackNode(key);
+      node.right.parent = node;
+      return node.right;
     }
+    return this.insertNode(node.right, key);
   }
 
   /**
+   * 修复节点属性
    * @private
    * @param node {RedBlackNode} 红黑树节点对象
    */
-  #fixTreeProperties(node) {
-    while(node && node.parent && node.parent.isRed() && node.isRed()) {
-      let parent = node.parent
-      const grandParent = parent.parent
+  fixTreeProperties(node) {
+    while (node && node.parent && node.parent.isRed() && node.isRed()) {
+      let { parent } = node;
+      const grandParent = parent.parent;
 
       // A: 父节点是左侧节点
       if (grandParent && grandParent.left === parent) {
-        const uncle = grandParent.right
+        const uncle = grandParent.right;
         // 1A: 叔节点也是红色 重新填色即可
         if (uncle && uncle.isRed()) {
-          grandParent.color= COLOR.RED
-          parent.color = COLOR.BLACK
-          uncle.color = COLOR.BLACK
-          node = grandParent
+          grandParent.color = COLOR.RED;
+          parent.color = COLOR.BLACK;
+          uncle.color = COLOR.BLACK;
+          node = grandParent;
         } else {
           // 2A: 节点是右侧子节点 左旋转
           if (node === parent.right) {
-            this.#rotationRR(parent)
-            node = parent
-            parent = node.parent
+            RedBlackTree.rotationRR(parent);
+            node = parent;
+            parent = node.parent;
           }
 
           // 3A: 节点是左侧子节点 右旋转
-          this.#rotationLL(grandParent)
-          parent.color = COLOR.BLACK
-          grandParent.color = COLOR.RED
-          node = parent
+          RedBlackTree.rotationLL(grandParent);
+          parent.color = COLOR.BLACK;
+          grandParent.color = COLOR.RED;
+          node = parent;
         }
       } else {
         // B: 父节点是右侧子节点
-        const uncle = grandParent.left
+        const uncle = grandParent.left;
 
         // 1B: 叔节点也是红色 重新填色即可
         if (uncle && uncle.isRed()) {
-          grandParent.color = COLOR.RED
-          parent.color = COLOR.BLACK
-          uncle.color = COLOR.BLACK
-          node = grandParent
+          grandParent.color = COLOR.RED;
+          parent.color = COLOR.BLACK;
+          uncle.color = COLOR.BLACK;
+          node = grandParent;
         } else {
           // 2B: 节点是左侧子节点 右旋转
           if (node === parent.left) {
-            this.#rotationLL(parent)
-            node = parent
-            parent = node.parent
+            RedBlackTree.rotationLL(parent);
+            node = parent;
+            parent = node.parent;
           }
 
           // 3B: 节点是右侧子节点 左旋转
-          this.#rotationRR(grandParent)
-          parent.color = COLOR.BLACK
-          grandParent.color = COLOR.RED
-          node = parent
+          RedBlackTree.rotationRR(grandParent);
+          parent.color = COLOR.BLACK;
+          grandParent.color = COLOR.RED;
+          node = parent;
         }
       }
     }
-    this.root.color = COLOR.BLACK
+    this.root.color = COLOR.BLACK;
   }
 
   /**
    * 向右单旋转
    * @private
-   * @override
    * @param node {RedBlackNode} 红黑树节点对象
    */
-  #rotationLL(node) {
-    const tmp = node.left
-    node.left = tmp.right
+  static rotationLL(node) {
+    const tmp = node.left;
+    node.left = tmp.right;
 
     if (tmp.right && tmp.right.key) {
-      tmp.right.parent = node
+      tmp.right.parent = node;
     }
 
-    tmp.parent = node.parent
+    tmp.parent = node.parent;
 
     if (!node.parent) {
-      this.root = tmp
+      this.root = tmp;
+    } else if (node === node.parent.left) {
+      node.parent.left = tmp;
     } else {
-      if (node === node.parent.left) {
-        node.parent.left = tmp
-      } else {
-        node.parent.right = tmp
-      }
+      node.parent.right = tmp;
     }
 
-    tmp.right = node
-    node.parent = tmp
+    tmp.right = node;
+    node.parent = tmp;
   }
 
   /**
    * 向左单旋转
    * @private
-   * @override
    * @param node {RedBlackNode} 红黑树节点对象
    */
-  #rotationRR(node) {
-    const tmp = node.right
-    node.right = tmp.left
+  static rotationRR(node) {
+    const tmp = node.right;
+    node.right = tmp.left;
 
     if (tmp.left && tmp.left.key) {
-      tmp.left.parent = node
+      tmp.left.parent = node;
     }
 
-    tmp.parent = node.parent
+    tmp.parent = node.parent;
 
     if (!node.parent) {
-      this.root = tmp
+      this.root = tmp;
+    } else if (node === node.parent.left) {
+      node.parent.left = tmp;
     } else {
-      if (node === node.parent.left) {
-        node.parent.left = tmp
-      } else {
-        node.parent.right = tmp
-      }
+      node.parent.right = tmp;
     }
 
-    tmp.left = node
-    node.parent = tmp
+    tmp.left = node;
+    node.parent = tmp;
   }
 }
 

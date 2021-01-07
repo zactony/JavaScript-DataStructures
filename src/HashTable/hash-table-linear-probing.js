@@ -44,7 +44,7 @@ class HashTableLinearProbing extends HashTable {
       if (this.items[index].key === key) {
         value = this.items[index].value;
         delete this.items[index];
-        this.#moveItemFillGap(key, index);
+        this.moveItemFillGap(key, index);
         break;
       } else {
         index += 1;
@@ -83,18 +83,18 @@ class HashTableLinearProbing extends HashTable {
    * @param removedKey {any} 移除项的key
    * @param removedIndex {number} 移除项的hash指针
    */
-  #moveItemFillGap(removedKey, removedIndex) {
-    const hashCode = HashTable.generateHashCode(removedKey)
-    let index = removedIndex + 1
-    let position = removedIndex
-    while(this.items[index]) {
-      const currentHashCode = HashTable.generateHashCode(this.items[index].key)
+  moveItemFillGap(removedKey, removedIndex) {
+    const hashCode = HashTable.generateHashCode(removedKey);
+    let index = removedIndex + 1;
+    let position = removedIndex;
+    while (this.items[index]) {
+      const currentHashCode = HashTable.generateHashCode(this.items[index].key);
       if (currentHashCode <= hashCode || currentHashCode <= position) {
-        this.items[position] = this.items[index]
-        position = index
-        delete this.items[index]
+        this.items[position] = this.items[index];
+        position = index;
+        delete this.items[index];
       }
-      index += 1
+      index += 1;
     }
   }
 }

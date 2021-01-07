@@ -12,7 +12,7 @@ class Set {
    * @private
    * @type {Object}
    */
-  #items= {}
+  items= {}
 
   /**
    * 集合新增一个数据
@@ -24,8 +24,8 @@ class Set {
   add(element) {
     if (isFunction(element) || isObject(element)) throw new TypeError(`${element} isn't primitive value`);
     if (this.has(element)) return false;
-    this.#items[element] = element;
-    return { ...this.#items };
+    this.items[element] = element;
+    return { ...this.items };
   }
 
   /**
@@ -36,7 +36,7 @@ class Set {
    */
   delete(element) {
     if (!this.has(element)) return false;
-    delete this.#items[element];
+    delete this.items[element];
     return true;
   }
 
@@ -47,7 +47,7 @@ class Set {
    * @returns {boolean} 是否存在
    */
   has(element) {
-    return Object.prototype.hasOwnProperty.call(this.#items, element);
+    return Object.prototype.hasOwnProperty.call(this.items, element);
   }
 
   /**
@@ -64,7 +64,7 @@ class Set {
    * @public
    */
   clear() {
-    this.#items = {};
+    this.items = {};
   }
 
   /**
@@ -73,7 +73,7 @@ class Set {
    * @returns {number} 集合长度
    */
   size() {
-    return Object.keys(this.#items).length;
+    return Object.keys(this.items).length;
   }
 
   /**
@@ -82,7 +82,7 @@ class Set {
    * @returns {Array} 集合值数组
    */
   values() {
-    return Object.values(this.#items);
+    return Object.values(this.items);
   }
 
   /**
@@ -126,7 +126,7 @@ class Set {
     const value = new Set();
     Object.keys(
       this.size() <= set.size()
-        ? this.#items
+        ? this.items
         : set,
     )
       .map((item) => set.has(item) && value.add(item));

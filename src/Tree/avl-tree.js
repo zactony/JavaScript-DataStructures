@@ -27,20 +27,20 @@ class AVLTree extends BinarySearchTree {
      *    判断右子树的键和插入键的大小，如果小于插入键则表示右子树发生了倾斜，
      *    调用向左双旋转；否则左子树发生了倾斜调用向右单旋转
      */
-    const balanceFactor = this.#getBalanceFactor(temp);
+    const balanceFactor = this.getBalanceFactor(temp);
     if (balanceFactor === BALANCE_FACTOR.UNBALANCED_LEFT) {
       if (this.compareFn(temp.left.key, key) === CompareEnum.AEC) {
-        temp = this.#rotationLL(temp);
+        temp = AVLTree.rotationLL(temp);
       } else {
-        return this.#rotationLR(temp);
+        return AVLTree.rotationLR(temp);
       }
     }
 
     if (balanceFactor === BALANCE_FACTOR.UNBALANCED_RIGHT) {
       if (this.compareFn(temp.right.key, key) === CompareEnum.DESC) {
-        temp = this.#rotationRR(temp);
+        temp = AVLTree.rotationRR(temp);
       } else {
-        return this.#rotationRL(temp);
+        return AVLTree.rotationRL(temp);
       }
     }
 
@@ -69,34 +69,34 @@ class AVLTree extends BinarySearchTree {
      *    首先计算右子树的平衡因子，如果右子树处于向右不平衡的状态，则使用向左单旋转；
      *    如果左子树处于向右不平衡的状态，则使用向右双旋转
      */
-    const balanceFactor = this.#getBalanceFactor(temp);
+    const balanceFactor = this.getBalanceFactor(temp);
     if (balanceFactor === BALANCE_FACTOR.UNBALANCED_LEFT) {
-      const balanceFactorLeft = this.#getBalanceFactor(temp.left);
+      const balanceFactorLeft = this.getBalanceFactor(temp.left);
 
       if (
         balanceFactorLeft === BALANCE_FACTOR.BALANCED
         || balanceFactorLeft === BALANCE_FACTOR.SLIGHTLY_UNBALANCED_LEFT
       ) {
-        return this.#rotationLL(temp);
+        return AVLTree.rotationLL(temp);
       }
 
       if (balanceFactorLeft === BALANCE_FACTOR.SLIGHTLY_UNBALANCED_RIGHT) {
-        return this.#rotationLR(temp.left);
+        return AVLTree.rotationLR(temp.left);
       }
     }
 
     if (balanceFactor === BALANCE_FACTOR.UNBALANCED_RIGHT) {
-      const balanceFactorRight = this.#getBalanceFactor(temp.right);
+      const balanceFactorRight = this.getBalanceFactor(temp.right);
 
       if (
         balanceFactorRight === BALANCE_FACTOR.BALANCED
         || balanceFactorRight === BALANCE_FACTOR.SLIGHTLY_UNBALANCED_RIGHT
       ) {
-        return this.#rotationRR(temp);
+        return AVLTree.rotationRR(temp);
       }
 
       if (balanceFactorRight === BALANCE_FACTOR.SLIGHTLY_UNBALANCED_LEFT) {
-        return this.#rotationRL(temp.right);
+        return AVLTree.rotationRL(temp.right);
       }
     }
 
@@ -109,11 +109,11 @@ class AVLTree extends BinarySearchTree {
    * @param node {Node} 节点
    * @returns {Node}
    */
-  #rotationLL(node) {
-    const temp = node.left
-    node.left = temp.right
-    temp.right = node
-    return temp
+  static rotationLL(node) {
+    const temp = node.left;
+    node.left = temp.right;
+    temp.right = node;
+    return temp;
   }
 
   /**
@@ -122,11 +122,11 @@ class AVLTree extends BinarySearchTree {
    * @param node {Node} 节点
    * @returns {Node}
    */
-  #rotationRR(node) {
-    const temp = node.right
-    node.right = temp.left
-    temp.left = node
-    return temp
+  static rotationRR(node) {
+    const temp = node.right;
+    node.right = temp.left;
+    temp.left = node;
+    return temp;
   }
 
   /**
@@ -135,9 +135,9 @@ class AVLTree extends BinarySearchTree {
    * @param node {Node} 节点
    * @returns {Node}
    */
-  #rotationLR(node) {
-    node.left = this.#rotationRR(node.left)
-    return this.#rotationLL(node)
+  static rotationLR(node) {
+    node.left = AVLTree.rotationRR(node.left);
+    return AVLTree.rotationLL(node);
   }
 
   /**
@@ -146,9 +146,9 @@ class AVLTree extends BinarySearchTree {
    * @param node {Node} 节点
    * @returns {Node}
    */
-  #rotationRL(node) {
-    node.right = this.#rotationLL(node.right)
-    return this.#rotationRR(node)
+  static rotationRL(node) {
+    node.right = AVLTree.rotationLL(node.right);
+    return AVLTree.rotationRR(node);
   }
 
   /**
@@ -157,19 +157,19 @@ class AVLTree extends BinarySearchTree {
    * @param node {Node} 节点
    * @returns {number}
    */
-  #getBalanceFactor(node) {
-    const heightDifference = this.#getNodeHeight(node.left) - this.#getNodeHeight(node.right)
+  getBalanceFactor(node) {
+    const heightDifference = this.getNodeHeight(node.left) - this.getNodeHeight(node.right);
     switch (heightDifference) {
       case -2:
-        return BALANCE_FACTOR.UNBALANCED_RIGHT
+        return BALANCE_FACTOR.UNBALANCED_RIGHT;
       case -1:
-        return BALANCE_FACTOR.SLIGHTLY_UNBALANCED_RIGHT
+        return BALANCE_FACTOR.SLIGHTLY_UNBALANCED_RIGHT;
       case 1:
-        return BALANCE_FACTOR.SLIGHTLY_UNBALANCED_LEFT
+        return BALANCE_FACTOR.SLIGHTLY_UNBALANCED_LEFT;
       case 2:
-        return BALANCE_FACTOR.UNBALANCED_LEFT
+        return BALANCE_FACTOR.UNBALANCED_LEFT;
       default:
-        return BALANCE_FACTOR.BALANCED
+        return BALANCE_FACTOR.BALANCED;
     }
   }
 
@@ -179,11 +179,11 @@ class AVLTree extends BinarySearchTree {
    * @param node {Node} 节点
    * @returns {number}
    */
-  #getNodeHeight(node) {
+  getNodeHeight(node) {
     if (isNull(node)) {
-      return -1
+      return -1;
     }
-    return Math.max(this.#getNodeHeight(node.left), this.#getNodeHeight(node.right)) + 1
+    return Math.max(this.getNodeHeight(node.left), this.getNodeHeight(node.right)) + 1;
   }
 }
 

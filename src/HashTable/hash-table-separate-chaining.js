@@ -13,14 +13,14 @@ class HashTableSeparateChaining {
    * @private
    * @type {Object}
    */
-  #items = {}
+  items = {}
 
   /**
    * 散列表长度
    * @private
    * @type {number}
    */
-  #count = 0
+  count = 0
 
   /**
    * 新增散列值
@@ -33,11 +33,11 @@ class HashTableSeparateChaining {
   put(key, value) {
     if (isSymbol(key)) throw new TypeError('don\'t support Symbol key');
     const index = HashTable.generateHashCode(key);
-    if (!this.#items[index]) {
-      this.#items[index] = new LinkedList();
+    if (!this.items[index]) {
+      this.items[index] = new LinkedList();
     }
-    this.#items[index].push(new ValuePair(key, value));
-    this.#count += 1;
+    this.items[index].push(new ValuePair(key, value));
+    this.count += 1;
     return true;
   }
 
@@ -52,13 +52,13 @@ class HashTableSeparateChaining {
     if (isSymbol(key)) throw new TypeError('don\'t support Symbol key');
     if (this.isEmpty()) return undefined;
     const index = HashTable.generateHashCode(key);
-    const value = this.#items[index];
+    const value = this.items[index];
     if (!value) return undefined;
     let current = value.getLinkedList();
     while (current.next) {
       if (current.value.key === key) {
         value.remove(current.value);
-        this.#count -= 1;
+        this.count -= 1;
         break;
       }
       current = current.next;
@@ -77,7 +77,7 @@ class HashTableSeparateChaining {
     if (isSymbol(key)) throw new TypeError('don\'t support Symbol key');
     if (this.isEmpty()) return undefined;
     const index = HashTable.generateHashCode(key);
-    const value = this.#items[index];
+    const value = this.items[index];
     if (!value) return undefined;
     let current = value.getLinkedList();
     while (current.next) {
@@ -94,8 +94,8 @@ class HashTableSeparateChaining {
    * @public
    */
   clear() {
-    this.#items = {};
-    this.#count = 0;
+    this.items = {};
+    this.count = 0;
   }
 
   /**
@@ -113,7 +113,7 @@ class HashTableSeparateChaining {
    * @return {number} 长度
    */
   size() {
-    return this.#count;
+    return this.count;
   }
 
   /**
@@ -125,7 +125,7 @@ class HashTableSeparateChaining {
   toString() {
     if (this.isEmpty()) return '';
     return Object
-      .entries(this.#items)
+      .entries(this.items)
       .reduce((acc, [hashCode, linkedList]) => {
         let current = linkedList.getLinkedList();
         while (current && current.value) {

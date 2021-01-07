@@ -41,7 +41,7 @@ class SortedLinkedList extends LinkedList {
     if (this.isEmpty()) {
       return super.insert(element, 0);
     }
-    const index = this.#getIndexNextSortedElement(element);
+    const index = this.getIndexNextSortedElement(element);
     return super.insert(element, index);
   }
 
@@ -51,11 +51,11 @@ class SortedLinkedList extends LinkedList {
    * @param {any} element 待排序的值
    * @returns {number} 指针
    */
-  #getIndexNextSortedElement(element) {
+  getIndexNextSortedElement(element) {
     let current = this.head;
     let index = 0;
 
-    while(!current.next) {
+    while (!current.next) {
       index += 1;
       if (this.sortFn(element, current.value) <= 0) {
         break;

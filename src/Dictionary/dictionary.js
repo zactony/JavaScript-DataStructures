@@ -11,7 +11,7 @@ class Dictionary {
    * @private
    * @type {Object}
    */
-  #items = {}
+  items = {}
 
   /**
    * 字典项新增
@@ -22,7 +22,7 @@ class Dictionary {
    */
   set(key, value) {
     const stringKey = Dictionary.keyToString(key);
-    this.#items[stringKey] = new ValuePair(key, value);
+    this.items[stringKey] = new ValuePair(key, value);
     return true;
   }
 
@@ -36,8 +36,8 @@ class Dictionary {
   remove(key) {
     const stringKey = Dictionary.keyToString(key);
     if (!this.has(stringKey)) throw new Error(`${key} doesn't exist`);
-    const value = this.#items[stringKey];
-    delete this.#items[stringKey];
+    const value = this.items[stringKey];
+    delete this.items[stringKey];
     return value;
   }
 
@@ -48,7 +48,7 @@ class Dictionary {
    * @returns {boolean} 是否存在
    */
   has(key) {
-    return Object.prototype.hasOwnProperty.call(this.#items, key);
+    return Object.prototype.hasOwnProperty.call(this.items, key);
   }
 
   /**
@@ -61,7 +61,7 @@ class Dictionary {
   get(key) {
     const stringKey = Dictionary.keyToString(key);
     if (!this.has(stringKey)) throw new Error(`${key} doesn't exist`);
-    return this.#items[stringKey];
+    return this.items[stringKey];
   }
 
   /**
@@ -70,7 +70,7 @@ class Dictionary {
    * @returns {Array} 键数组
    */
   keys() {
-    return this.#values().map(({ key }) => key);
+    return Object.values(this.items).map(({ key }) => key);
   }
 
   /**
@@ -79,7 +79,7 @@ class Dictionary {
    * @returns {Array} 值数组
    */
   values() {
-    return this.#values().map(({ value }) => value);
+    return Object.values(this.items).map(({ value }) => value);
   }
 
   /**
@@ -88,7 +88,7 @@ class Dictionary {
    * @returns {Array} 键值对数组
    */
   entries() {
-    return this.#values().map(({ key, value }) => [key, value]);
+    return Object.values(this.items).map(({ key, value }) => [key, value]);
   }
 
   /**
@@ -114,7 +114,7 @@ class Dictionary {
    * @public
    */
   clear() {
-    this.#items = {};
+    this.items = {};
   }
 
   /**
@@ -126,18 +126,9 @@ class Dictionary {
     let value = '';
 
     if (!this.isEmpty()) {
-      value = this.values().filter((item) => !isSymbol(item)).join(',');
+      value = Object.values(this.items).filter((item) => !isSymbol(item)).join(',');
     }
     return value;
-  }
-
-  /**
-   * 获取字典所有值
-   * @public
-   * @returns {Array<Object>} 对象数组
-   */
-  #values() {
-    return Object.values(this.#items);
   }
 
   /**
