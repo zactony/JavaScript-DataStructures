@@ -19,5 +19,6 @@ module.exports = {
     'import/extensions': 'off',
     'no-undef': 'off',
     'consistent-return': 'off',
+    'no-param-reassign': 'off',
   },
 };
