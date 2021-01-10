@@ -8,7 +8,7 @@ import ValuePair from './value-pair.js';
 class Dictionary {
   /**
    * 字典
-   * @private
+   * @protected
    * @type {Object}
    */
   items = {}

@@ -10,14 +10,14 @@ import ValuePair from '../Dictionary/value-pair.js';
 class HashTableSeparateChaining {
   /**
    * 散列表
-   * @private
+   * @protected
    * @type {Object}
    */
   items = {}
 
   /**
    * 散列表长度
-   * @private
+   * @protected
    * @type {number}
    */
   count = 0

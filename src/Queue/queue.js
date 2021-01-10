@@ -28,6 +28,7 @@ class Queue {
 
   /**
    * 队列新增一个数据
+   * @public
    * @param element {any} 待新增的值
    * @returns {Object} 新增后的队列
    */

@@ -21,6 +21,7 @@ class Stack {
 
   /**
    * 栈顶推入一个数据
+   * @public
    * @param element {any} 待推入的数据
    * @returns {Object} 推入数据后的栈
    */

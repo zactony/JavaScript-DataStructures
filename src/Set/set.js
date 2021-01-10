@@ -9,7 +9,7 @@ import {
 class Set {
   /**
    * 存储数据的集合
-   * @private
+   * @protected
    * @type {Object}
    */
   items= {}

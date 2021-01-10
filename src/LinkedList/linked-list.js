@@ -40,6 +40,7 @@ class LinkedList {
 
   /**
    * 链表新增一个节点
+   * @public
    * @param element {any} 待新增的值
    * @returns {Object} 新增节点后的链表
    */
@@ -164,6 +165,7 @@ class LinkedList {
 
   /**
    * 获取整个链表
+   * @protected
    */
   getLinkedList() {
     return this.head;
