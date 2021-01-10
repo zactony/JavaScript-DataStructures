@@ -59,6 +59,10 @@ class MinHeap {
   siftUp(index) {
     let parent = MinHeap.getParentIndex(index);
 
+    /**
+     * 传入的参数首先判断合法，其次判断父节点是否大于当前节点，两者为真的情况下，
+     * 做交换操作，最后更改参数和父节点索引，继续循环
+     */
     while (index > 0 && defaultCompare(this.heap[parent], this.heap[index]) === CompareEnum.AEC) {
       this.swap(parent, index);
       index = parent;
@@ -77,10 +81,16 @@ class MinHeap {
     const right = MinHeap.getRightIndex(index);
     const size = this.size();
 
+    /**
+     * 如果element的节点值大于左节点值，则重新赋予element为左节点索引
+     */
     if (left < size && defaultCompare(this.heap[element], this.heap[left]) === CompareEnum.AEC) {
       element = left;
     }
 
+    /**
+     * 如果element的节点值大于右节点值，则重新赋予element为右节点索引
+     */
     if (right < size && defaultCompare(this.heap[element], this.heap[right]) === CompareEnum.AEC) {
       element = right;
     }
