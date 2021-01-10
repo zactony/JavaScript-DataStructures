@@ -29,9 +29,9 @@ class MaxHeap {
   }
 
   /**
-   * 弹出最小值
+   * 弹出最大值
    * @public
-   * @returns {number} 最小值
+   * @returns {number} 最大值
    */
   extract() {
     if (this.isEmpty()) return undefined;
@@ -77,11 +77,11 @@ class MaxHeap {
     const right = MaxHeap.getRightIndex(index);
     const size = this.size();
 
-    if (left < size && defaultCompare(this.heap[element], this.heap[left]) === CompareEnum.AEC) {
+    if (left < size && defaultCompare(this.heap[element], this.heap[left]) === CompareEnum.DESC) {
       element = left;
     }
 
-    if (right < size && defaultCompare(this.heap[element], this.heap[right]) === CompareEnum.AEC) {
+    if (right < size && defaultCompare(this.heap[element], this.heap[right]) === CompareEnum.DESC) {
       element = right;
     }
 
