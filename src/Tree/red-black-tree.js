@@ -5,6 +5,16 @@ import AVLTree from './avl-tree.js';
 import { RedBlackNode } from './node.js';
 
 /**
+ * 红黑树基本原则
+ * 1. 每个节点不是红的就是黑的
+ * 2. 树的根节点是黑的
+ * 3. 所有叶节点都是黑的
+ * 4. 如果一个节点是红的，那么它的两个子节点都是黑的
+ * 5. 不能有两个相邻的红节点，一个红节点不能有红的父节点和子节点
+ * 6. 从给定的节点到它的后代节点的所有路径包含相同数量的黑色节点
+ */
+
+/**
  * 数据结构 - 红黑树
  * @public
  * @extends AVLTree
@@ -73,13 +83,13 @@ class RedBlackTree extends AVLTree {
         } else {
           // 2A: 节点是右侧子节点 左旋转
           if (node === parent.right) {
-            RedBlackTree.rotationRR(parent);
+            this.rotationRR(parent);
             node = parent;
             parent = node.parent;
           }
 
           // 3A: 节点是左侧子节点 右旋转
-          RedBlackTree.rotationLL(grandParent);
+          this.rotationLL(grandParent);
           parent.color = COLOR.BLACK;
           grandParent.color = COLOR.RED;
           node = parent;
@@ -97,13 +107,13 @@ class RedBlackTree extends AVLTree {
         } else {
           // 2B: 节点是左侧子节点 右旋转
           if (node === parent.left) {
-            RedBlackTree.rotationLL(parent);
+            this.rotationLL(parent);
             node = parent;
             parent = node.parent;
           }
 
           // 3B: 节点是右侧子节点 左旋转
-          RedBlackTree.rotationRR(grandParent);
+          this.rotationRR(grandParent);
           parent.color = COLOR.BLACK;
           grandParent.color = COLOR.RED;
           node = parent;
@@ -118,7 +128,7 @@ class RedBlackTree extends AVLTree {
    * @private
    * @param node {RedBlackNode} 红黑树节点对象
    */
-  static rotationLL(node) {
+  rotationLL(node) {
     const tmp = node.left;
     node.left = tmp.right;
 
@@ -145,7 +155,7 @@ class RedBlackTree extends AVLTree {
    * @private
    * @param node {RedBlackNode} 红黑树节点对象
    */
-  static rotationRR(node) {
+  rotationRR(node) {
     const tmp = node.right;
     node.right = tmp.left;
 
