@@ -6,11 +6,11 @@ import { isSymbol } from '../utils.js';
  */
 class Queue {
   /**
-   * 队列长度
+   * 队列待插入指针
    * @protected
    * @type {number}
    */
-  count = 0
+  lastIndex = 0
 
   /**
    * 队列
@@ -33,8 +33,8 @@ class Queue {
    * @returns {Object} 新增后的队列
    */
   push(element) {
-    this.items[this.count] = element;
-    this.count += 1;
+    this.items[this.lastIndex] = element;
+    this.lastIndex += 1;
 
     return { ...this.items };
   }
@@ -48,7 +48,6 @@ class Queue {
     if (this.isEmpty()) return undefined;
     const value = this.items[this.lowestIndex];
     delete this.items[this.lowestIndex];
-    this.count -= 1;
     this.lowestIndex += 1;
 
     return value;
@@ -80,7 +79,7 @@ class Queue {
    * @returns {number} 队列长度
    */
   size() {
-    return this.count;
+    return Object.keys(this.items).length;
   }
 
   /**

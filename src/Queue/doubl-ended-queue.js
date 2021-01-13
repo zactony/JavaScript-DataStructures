@@ -26,10 +26,10 @@ class DoubleEndedQueue extends Queue {
       this.lowestIndex -= 1;
       this.items[this.lowestIndex] = element;
     } else {
-      for (let i = this.count; i > 0; i -= 1) {
+      for (let i = this.size(); i > 0; i -= 1) {
         this.items[i] = this.items[i - 1];
       }
-      this.count += 1;
+      this.lastIndex += 1;
       this.items[this.lowestIndex] = element;
     }
 
@@ -43,9 +43,9 @@ class DoubleEndedQueue extends Queue {
    */
   pop() {
     if (this.isEmpty()) return undefined;
-    const value = this.items[this.count - 1];
-    delete this.items[this.count - 1];
-    this.count -= 1;
+    const value = this.items[this.lastIndex - 1];
+    delete this.items[this.lastIndex - 1];
+    this.lastIndex -= 1;
 
     return value;
   }
