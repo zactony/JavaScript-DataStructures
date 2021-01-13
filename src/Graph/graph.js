@@ -1,4 +1,6 @@
 import Dictionary from '../Dictionary/dictionary.js';
+import { GRAPH_VISITED } from '../utils.js';
+import Queue from '../Queue/queue.js';
 
 /**
  * 数据结构 - 图
@@ -64,6 +66,7 @@ class Graph {
   /**
    * 获取顶点集合
    * @public
+   * @returns {Array} 顶点集合
    */
   getVertices() {
     return this.vertices;
@@ -72,11 +75,42 @@ class Graph {
   /**
    * 获取边集合
    * @public
+   * @returns {Dictionary} 边集合
    */
   getAdjList() {
     return this.adjList;
   }
 
+  breathFirstSearch(startVertex) {
+    if (!this.vertices.includes(startVertex)) return;
+
+    const visitedObj = this.vertices
+      .reduce((acc, curr) => ({ ...acc, [curr]: GRAPH_VISITED.NO_VISITED }), {});
+
+    const queue = new Queue();
+    queue.push(startVertex);
+
+    while (!queue.isEmpty()) {
+      const u = queue.shift();
+
+      const temp = this.adjList.get(u).value;
+
+      for (let index = 0; index < temp.length; index += 1) {
+        if (visitedObj[temp[index]] === GRAPH_VISITED.NO_VISITED) {
+          visitedObj[temp[index]] = GRAPH_VISITED.NO_FULL_VISITED;
+          queue.push(temp[index]);
+        }
+      }
+
+      visitedObj[u] = GRAPH_VISITED.FULL_VISITED;
+    }
+  }
+
+  /**
+   * 字符串化图
+   * @public
+   * @returns {string} 字符串图
+   */
   toString() {
     const strList = this.vertices.map((v) => `${v} -> ${this.adjList.get(v).value.join(' ')}`);
     return strList.join('\n');
