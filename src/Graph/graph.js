@@ -81,6 +81,11 @@ class Graph {
     return this.adjList;
   }
 
+  /**
+   * BFS 遍历
+   * @private
+   * @param startVertex {any} 起始顶点
+   */
   breathFirstSearch(startVertex) {
     if (!this.vertices.includes(startVertex)) return;
 
@@ -104,6 +109,62 @@ class Graph {
 
       visitedObj[u] = GRAPH_VISITED.FULL_VISITED;
     }
+  }
+
+  /**
+   * 寻找最短路径
+   * @private
+   * @param startVertex {any} 起始顶点
+   */
+  findShortPathByBFS(startVertex) {
+    if (!this.vertices.includes(startVertex)) return;
+
+    const obj = this.vertices
+      .reduce(({
+        visitedVertices,
+        distances,
+        predecessors,
+      }, curr) => ({
+        visitedVertices: { ...visitedVertices, [curr]: GRAPH_VISITED.NO_VISITED },
+        distances: { ...distances, [curr]: 0 },
+        predecessors: { ...predecessors, [curr]: null },
+      }), {
+        visitedVertices: {},
+        distances: {},
+        predecessors: {},
+      });
+
+    const {
+      visitedVertices,
+      distances,
+      predecessors,
+    } = obj;
+
+    const queue = new Queue();
+    queue.push(startVertex);
+
+    while (!queue.isEmpty()) {
+      const u = queue.shift();
+
+      const temp = this.adjList.get(u).value;
+
+      for (let index = 0; index < temp.length; index += 1) {
+        const w = temp[index];
+        if (visitedVertices[w] === GRAPH_VISITED.NO_VISITED) {
+          visitedVertices[w] = GRAPH_VISITED.NO_FULL_VISITED;
+          distances[w] = distances[u] + 1;
+          predecessors[w] = u;
+          queue.push(w);
+        }
+      }
+
+      visitedVertices[u] = GRAPH_VISITED.FULL_VISITED;
+    }
+
+    return {
+      distances,
+      predecessors,
+    };
   }
 
   /**
