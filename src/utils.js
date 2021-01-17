@@ -128,13 +128,3 @@ export const COLOR = {
   RED: 'red',
   BLACK: 'black',
 };
-
-/**
- * 图访问程度枚举
- * @enum
- */
-export const GRAPH_VISITED = {
-  NO_VISITED: 0,
-  NO_FULL_VISITED: 1,
-  FULL_VISITED: 2,
-};
