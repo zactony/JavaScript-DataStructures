@@ -20,5 +20,6 @@ module.exports = {
     'no-undef': 'off',
     'consistent-return': 'off',
     'no-param-reassign': 'off',
+    'no-plusplus': 'off',
   },
 };
