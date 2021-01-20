@@ -5,8 +5,8 @@
  * @param array {Array} 待排序数组
  */
 export const bubbleSort = (array) => {
-  for (let i = 0; i < array.length; i += 1) {
-    for (let j = 0; j < array.length - 1; j += 1) {
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < array.length - 1; j++) {
       if (array[j] > array[j + 1]) {
         [array[j], array[j + 1]] = [array[j + 1], array[j]];
       }
@@ -20,8 +20,8 @@ export const bubbleSort = (array) => {
  * @param array {Array} 待排序数组
  */
 export const modifiedBubbleSort = (array) => {
-  for (let i = 0; i < array.length; i += 1) {
-    for (let j = 0; j < array.length - 1 - i; j += 1) {
+  for (let i = 0; i < array.length; i++) {
+    for (let j = 0; j < array.length - 1 - i; j++) {
       if (array[j] > array[j + 1]) {
         [array[j], array[j + 1]] = [array[j + 1], array[j]];
       }
@@ -37,9 +37,9 @@ export const modifiedBubbleSort = (array) => {
 export const selectionSort = (array) => {
   let minValueIndex;
 
-  for (let i = 0; i < array.length - 1; i += 1) {
+  for (let i = 0; i < array.length - 1; i++) {
     minValueIndex = i;
-    for (let j = i; j < array.length; j += 1) {
+    for (let j = i; j < array.length; j++) {
       if (array[minValueIndex] > array[j]) {
         minValueIndex = j;
       }
@@ -57,13 +57,13 @@ export const selectionSort = (array) => {
  * @param array {Array} 待排序数组
  */
 export const insertionSort = (array) => {
-  for (let i = 1; i < array.length; i += 1) {
+  for (let i = 1; i < array.length; i++) {
     let j = i;
     const temp = array[i];
 
     while (j > 0 && array[j - 1] > temp) {
       array[j] = array[j - 1];
-      j -= 1;
+      j--;
     }
 
     array[j] = temp;
@@ -71,7 +71,7 @@ export const insertionSort = (array) => {
 };
 
 export const insertionSortOther = (array) => {
-  for (let i = 1; i < array.length; i += 1) {
+  for (let i = 1; i < array.length; i++) {
     let j = i;
 
     while (j > 0 && array[j - 1] > array[j]) {
@@ -79,4 +79,30 @@ export const insertionSortOther = (array) => {
       j -= 1;
     }
   }
+};
+
+/**
+ * 归并排序是将大数组递归分割成小数组，然后依次比较小数组的大小，
+ * 最后依次返回成有序的数组
+ *
+ */
+const merge = (left, right) => {
+  let i = 0;
+  let j = 0;
+  const result = [];
+  while (i < left.length && j < right.length) {
+    result.push(left[i] > right[j] ? left[i++] : right[j++]);
+  }
+  return result.concat(i < left.length ? left.slice(i) : right.slice(j));
+};
+
+export const mergeSort = (array) => {
+  if (array.length > 1) {
+    const { length } = array;
+    const middle = Math.floor(length / 2);
+    const left = mergeSort(array.slice(0, middle));
+    const right = mergeSort(array.slice(middle, length));
+    array = merge(left, right);
+  }
+  return array;
 };
