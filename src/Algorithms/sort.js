@@ -106,3 +106,41 @@ export const mergeSort = (array) => {
   }
   return array;
 };
+
+const partition = (array, leftIndex, rightIndex) => {
+  const pivot = array[Math.floor((leftIndex + rightIndex) / 2)];
+  let i = leftIndex;
+  let j = rightIndex;
+
+  while (i <= j) {
+    while (array[i] < pivot) {
+      i++;
+    }
+
+    while (array[j] > pivot) {
+      j--;
+    }
+
+    if (i <= j) {
+      [array[i], array[j]] = [array[j], array[i]];
+      i++;
+      j--;
+    }
+  }
+
+  return i;
+};
+
+export const quickSort = (array, leftIndex, rightIndex) => {
+  let index;
+  if (array.length > 1) {
+    index = partition(array, leftIndex, rightIndex);
+    if (leftIndex < index - 1) {
+      quickSort(array, leftIndex, index - 1);
+    }
+    if (index < rightIndex) {
+      quickSort(array, index, rightIndex);
+    }
+  }
+  return array;
+};
