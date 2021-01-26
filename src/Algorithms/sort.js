@@ -84,7 +84,6 @@ export const insertionSortOther = (array) => {
 /**
  * 归并排序是将大数组递归分割成小数组，然后依次比较小数组的大小，
  * 最后依次返回成有序的数组
- *
  */
 const merge = (left, right) => {
   let i = 0;
@@ -107,6 +106,10 @@ export const mergeSort = (array) => {
   return array;
 };
 
+/**
+ * 快速排序基于每次选择的元素作为主元，然后头尾依次比较，前者比主元大的以及
+ * 后者比主元小的两者互相交换，然后继续分割数组递归比较
+ */
 const partition = (array, leftIndex, rightIndex) => {
   const pivot = array[Math.floor((leftIndex + rightIndex) / 2)];
   let i = leftIndex;
@@ -143,4 +146,32 @@ export const quickSort = (array, leftIndex, rightIndex) => {
     }
   }
   return array;
+};
+
+/**
+ * 计数排序通过将值做为临时数组的下标，统计该值出现的次数
+ * 随后循环该临时数组，根据出现的次数依次将下标推进新数组然后返回
+ */
+export const countSort = (array) => {
+  const temp = [];
+  for (let i = 0; i < array.length; i++) {
+    const index = array[i];
+    if (temp[index]) {
+      temp[index]++;
+    } else {
+      temp[index] = 1;
+    }
+  }
+
+  const result = [];
+  temp.reduce((acc, curr, index) => {
+    let count = curr;
+    while (count) {
+      acc.push(index);
+      count--;
+    }
+    return acc;
+  }, result);
+
+  return result;
 };
