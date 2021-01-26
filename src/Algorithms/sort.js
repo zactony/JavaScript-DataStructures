@@ -175,3 +175,48 @@ export const countSort = (array) => {
 
   return result;
 };
+
+const createBuckets = (array, bucketSize) => {
+  let minValue = array[0];
+
+  for (let i = 1; i < array.length; i++) {
+    if (array[i] < minValue) {
+      minValue = array[i];
+    }
+  }
+
+  const buckets = [];
+
+  for (let i = 0; i < array.length; i++) {
+    const bucketIndex = Math.floor((array[i] - minValue) / bucketSize);
+    if (buckets[bucketIndex]) {
+      buckets[bucketIndex].push(array[i]);
+    } else {
+      buckets[bucketIndex] = [array[i]];
+    }
+  }
+  return buckets;
+};
+
+/**
+ * 桶排序通过计算待排序数组里面的每一个元素与最小元素的差值除以每个桶的大小，
+ * 以此得出当前元素属于具体某一个桶，通过这样的方式得到的桶数组其实已经经过一次排序，
+ * 当前的桶的最小值必定大于前一个桶的最大值，然后依次对桶进行排序
+ */
+const sortBuckets = (array) => {
+  const result = [];
+  for (let i = 0; i < array.length; i++) {
+    if (array[i]) {
+      result.push(...countSort(array[i]));
+    }
+  }
+  return result;
+};
+
+export const bucketSort = (array, bucketSize = 5) => {
+  if (array.length < 2) {
+    return array;
+  }
+  const buckets = createBuckets(array, bucketSize);
+  return sortBuckets(buckets);
+};
