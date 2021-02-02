@@ -267,3 +267,39 @@ export const radixSort = (array, radixBase = 10) => {
 
   return array;
 };
+
+/**
+ * 顺序搜索
+ */
+export const sequentialSearch = (array, value) => {
+  for (let i = 0; i < array.length; i++) {
+    if (array[i] === value) {
+      return i;
+    }
+  }
+  return -1;
+};
+
+/**
+ * 二分搜索
+ */
+export const binarySearch = (array, value) => {
+  const sortedArray = quickSort(array);
+  let minIndex = 0;
+  let maxIndex = sortedArray.length - 1;
+
+  while (minIndex <= maxIndex) {
+    const mid = Math.floor((minIndex + maxIndex) / 2);
+    const element = sortedArray[mid];
+
+    if (element < value) {
+      minIndex = mid + 1;
+    } else if (element > value) {
+      maxIndex = mid - 1;
+    } else {
+      return mid;
+    }
+  }
+
+  return -1;
+};
